@@ -1,0 +1,25 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      golang: 1.21
+    commands:
+      - echo "Usando Go:"
+      - go version
+
+  build:
+    commands:
+      - echo "Compilando aplicación Go..."
+      - go build -o hello-world .
+
+  post_build:
+    commands:
+      - echo "Ejecutando binario para ver el Hello World:"
+      - ./hello-world
+
+artifacts:
+  files:
+    - hello-world
+
+
