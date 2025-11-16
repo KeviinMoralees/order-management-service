@@ -1,10 +1,31 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"log"
+	"net/http"
+)
 
+func helloHandler(w http.ResponseWriter, r *http.Request) {
+	// Solo aceptamos GET a /hello
+	if r.URL.Path != "/hello" {
+		http.NotFound(w, r)
+		return
+	}
 
+	if r.Method != http.MethodGet {
+		w.WriteHeader(http.StatusMethodNotAllowed)
+		return
+	}
 
-func main(){
-
-	fmt.Println("hello world, you are the best")
+	w.WriteHeader(http.StatusOK)
+	fmt.Fprint(w, "you are the best")
 }
+
+func main() {
+	http.HandleFunc("/hello", helloHandler)
+
+	log.Println("Servidor listening in port :8080")
+	log.Fatal(http.ListenAndServe(":8080", nil))
+}
+
