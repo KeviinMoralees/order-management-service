@@ -9,13 +9,17 @@ phases:
   build:
     commands:
       - echo "Compilando aplicación Go..."
-      - go build -o hello-world .
+      - go build -o order-management-service-ci .
 
   post_build:
     commands:
-      - echo "Ejecutando binario para ver el Hello World:"
+      - echo "Empaquetando artefacto para CodeDeploy"
+      - ls -R
 
 artifacts:
   files:
-    - hello-world
+    - order-management-service-ci
+    - appspec.yml
+    - scripts/**/*
+  discard-paths: no
 
