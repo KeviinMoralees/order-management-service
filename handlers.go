@@ -22,7 +22,7 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusOK)
-	fmt.Fprint(w, "test in hello endpoint")
+	fmt.Fprint(w, "test in hello endpoint PRUEBA VIDEO")
 }
 
 
