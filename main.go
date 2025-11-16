@@ -19,7 +19,7 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusOK)
-	fmt.Fprint(w, "Remember, you are the best")
+	fmt.Fprint(w, "Remember, you are the best v1")
 }
 
 func main() {
