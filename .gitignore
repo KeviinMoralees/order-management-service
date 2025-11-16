@@ -6,6 +6,7 @@ order-management-service
 *.dll
 *.so
 *.dylib
+AWS_SETUP.md
 
 # Test binaries
 *.test

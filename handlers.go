@@ -8,9 +8,9 @@ import (
 	"strings"
 )
 
-// helloHandler maneja el endpoint /hello
+
 func helloHandler(w http.ResponseWriter, r *http.Request) {
-	// Solo aceptamos GET a /hello
+
 	if r.URL.Path != "/hello" {
 		http.NotFound(w, r)
 		return
@@ -22,15 +22,15 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusOK)
-	fmt.Fprint(w, "Remember, you are the best v1")
+	fmt.Fprint(w, "test in hello endpoint")
 }
 
-// createOrderHandler maneja la creación de pedidos
+
 func createOrderHandler(repo *DynamoDBRepository) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 
-		// Solo aceptamos POST
+		
 		if r.Method != http.MethodPost {
 			w.WriteHeader(http.StatusMethodNotAllowed)
 			json.NewEncoder(w).Encode(CreateOrderResponse{
@@ -40,7 +40,7 @@ func createOrderHandler(repo *DynamoDBRepository) http.HandlerFunc {
 			return
 		}
 
-		// Decodificar el body
+		
 		var req CreateOrderRequest
 		if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 			w.WriteHeader(http.StatusBadRequest)
@@ -51,7 +51,7 @@ func createOrderHandler(repo *DynamoDBRepository) http.HandlerFunc {
 			return
 		}
 
-		// Validar campos requeridos
+		
 		if strings.TrimSpace(req.OrderName) == "" || strings.TrimSpace(req.UserName) == "" {
 			w.WriteHeader(http.StatusBadRequest)
 			json.NewEncoder(w).Encode(CreateOrderResponse{
@@ -61,7 +61,7 @@ func createOrderHandler(repo *DynamoDBRepository) http.HandlerFunc {
 			return
 		}
 
-		// Crear el pedido en DynamoDB
+		
 		order, err := repo.CreateOrder(req.OrderName, req.UserName)
 		if err != nil {
 			log.Printf("Error creating order: %v", err)
@@ -73,7 +73,7 @@ func createOrderHandler(repo *DynamoDBRepository) http.HandlerFunc {
 			return
 		}
 
-		// Respuesta exitosa
+		
 		w.WriteHeader(http.StatusCreated)
 		json.NewEncoder(w).Encode(CreateOrderResponse{
 			Success: true,
