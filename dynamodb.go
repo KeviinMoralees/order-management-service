@@ -19,8 +19,8 @@ type DynamoDBRepository struct {
 }
 
 // NewDynamoDBRepository crea una nueva instancia del repository
-func NewDynamoDBRepository(tableName string) (*DynamoDBRepository, error) {
-	cfg, err := config.LoadDefaultConfig(context.TODO())
+func NewDynamoDBRepository(tableName, region string) (*DynamoDBRepository, error) {
+	cfg, err := config.LoadDefaultConfig(context.TODO(), config.WithRegion(region))
 	if err != nil {
 		return nil, fmt.Errorf("error loading AWS config: %w", err)
 	}

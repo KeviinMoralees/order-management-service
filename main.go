@@ -3,19 +3,17 @@ package main
 import (
 	"log"
 	"net/http"
-	"os"
 )
 
 func main() {
-	// Obtener el nombre de la tabla de DynamoDB desde variable de entorno
-	// Por defecto usa "Orders" si no está configurada
-	tableName := os.Getenv("DYNAMODB_TABLE_NAME")
-	if tableName == "" {
-		tableName = "Orders"
-	}
+	// Configuración hardcodeada
+	tableName := "Orders"
+	region := "us-east-1"
+
+	log.Printf("Connecting to DynamoDB table '%s' in region '%s'", tableName, region)
 
 	// Inicializar el repository de DynamoDB
-	repo, err := NewDynamoDBRepository(tableName)
+	repo, err := NewDynamoDBRepository(tableName, region)
 	if err != nil {
 		log.Printf("Warning: Could not initialize DynamoDB: %v", err)
 		log.Println("The /orders endpoint will not work properly")
